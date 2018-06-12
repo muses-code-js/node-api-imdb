@@ -1,0 +1,26 @@
+{
+  "name": "node-api-imdb",
+  "version": "1.0.0",
+  "description": "This is a Kata which aims at developing a Node API for creating a personal Movie Database using Test Driven Development[TDD] approach",
+  "main": "./src/index.js",
+  "scripts": {
+    "test": "jest --watchAll"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/node-girls-australia/node-api-imdb.git"
+  },
+  "keywords": [
+    "Node"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/node-girls-australia/node-api-imdb/issues"
+  },
+  "homepage": "https://github.com/node-girls-australia/node-api-imdb#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "jest": "^23.1.0"
+  }
+}

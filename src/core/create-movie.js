@@ -7,5 +7,12 @@ module.exports = ({ title, description }) => {
     return 'Movie description is required';
   }
 
-  
+  return {
+    movie: {
+      id: '1',
+      title,
+      description
+    },
+    status: 'successfully added movie'
+  }
 }

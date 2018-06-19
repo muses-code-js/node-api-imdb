@@ -6,10 +6,11 @@ describe('create movie', () => {
       title: '',
       description: 'A long time ago in a galaxy far far away...'
     }
-    
-    const result = createMovie(movie);
+
+    const database = {}
+    const result = createMovie(database)(movie);
   
-    expect(result).toBe('Movie title is required');
+    expect(result.status).toBe('Movie title is required');
   });
 
   test('requires a movie with a description', () => {
@@ -17,10 +18,12 @@ describe('create movie', () => {
       title: 'Star Wars',
       description: ''
     }
-    
-    const result = createMovie(movie);
+
+    const database = {}
+
+    const result = createMovie(database)(movie);
   
-    expect(result).toBe('Movie description is required');
+    expect(result.status).toBe('Movie description is required');
   });
 
   test('creates a movie', () => {

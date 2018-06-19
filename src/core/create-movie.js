@@ -1,4 +1,4 @@
-module.exports = ({ title, description }) => {
+module.exports = (database) => ({ title, description }) => {
   if (!title) {
     return 'Movie title is required';
   }
@@ -7,9 +7,11 @@ module.exports = ({ title, description }) => {
     return 'Movie description is required';
   }
 
+  const { id } = database.save({ title, description });
+
   return {
     movie: {
-      id: '1',
+      id,
       title,
       description
     },

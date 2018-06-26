@@ -1,6 +1,6 @@
 const createMovie = require('./create-movie');
 
-describe('create movie', () => {
+describe('core - create movie', () => {
   test('requires a movie with a title', () => {
     const movie = {
       title: '',

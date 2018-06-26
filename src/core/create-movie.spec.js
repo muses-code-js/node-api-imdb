@@ -6,11 +6,15 @@ describe('create movie', () => {
       title: '',
       description: 'A long time ago in a galaxy far far away...'
     }
+    const database = {
+      save: () => ({})
+    }
+    const databaseSaveSpy = jest.spyOn(database, 'save');
 
-    const database = {}
     const result = createMovie(database)(movie);
   
     expect(result.status).toBe('Movie title is required');
+    expect(databaseSaveSpy).not.toHaveBeenCalled()
   });
 
   test('requires a movie with a description', () => {
@@ -18,12 +22,15 @@ describe('create movie', () => {
       title: 'Star Wars',
       description: ''
     }
-
-    const database = {}
+    const database = {
+      save: () => ({})
+    }
+    const databaseSaveSpy = jest.spyOn(database, 'save');
 
     const result = createMovie(database)(movie);
   
     expect(result.status).toBe('Movie description is required');
+    expect(databaseSaveSpy).not.toHaveBeenCalled()
   });
 
   test('creates a movie', () => {

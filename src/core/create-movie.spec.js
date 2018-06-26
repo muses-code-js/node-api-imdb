@@ -37,7 +37,8 @@ describe('create movie', () => {
     const database = {
       save: () => ({
         id: 2
-      })
+      }),
+      getAll: () => [{}]
     }
 
     const databaseSaveSpy = jest.spyOn(database, 'save');
@@ -55,5 +56,26 @@ describe('create movie', () => {
     expect(result.movie.description).toBe(movie.description);
     expect(result.movie.id).toBe(2);
     expect(result.status).toBe('successfully added movie');
+  });
+
+  test('does not create duplicated movie', () => {
+    const movie = {
+      title: 'Star Wars',
+      description: 'A long time ago in a galaxy far far away...'
+    }
+    const database = {
+      save: () => ({}),
+      getAll: () => [{
+        title: 'Star Wars',
+        description: 'Some description'
+      }]
+    }
+
+    const databaseSaveSpy = jest.spyOn(database, 'save');
+
+    const result = createMovie(database)(movie);
+
+    expect(databaseSaveSpy).not.toHaveBeenCalled()
+    expect(result.status).toBe('Movie already exist');
   });
 });

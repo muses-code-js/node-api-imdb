@@ -1,14 +1,27 @@
 const express = require('express');
 const app = express();
+const bodyParser = require('body-parser');
 
-app.post('/movie', (req, res) => {
-  res.send(201, {
-    movie: {
-      title: 'Star Wars',
-      description: 'Description...',
-    },
-    status: 'successfully added movie'
+const database = {
+  save: () => ({}),
+  getAll: () => [{}]
+}
+
+module.exports = core => {
+  
+  app.use(bodyParser.json());
+
+  app.post('/movie', (req, res) => {
+    const result = core.createMovie(database)(req.body);
+
+    if (result.movie) {
+      res.status(201).send(result);
+    } else {
+      res.status(400).send(result);
+    }
+    
   });
-});
 
-module.exports = app;
+  return app;
+
+}

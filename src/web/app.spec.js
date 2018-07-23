@@ -1,21 +1,37 @@
 const request = require('supertest');
-const app = require('./app');
+const core = require('../core');
+const app = require('./app')(core);
 
 describe('web - app', () => {
 
-  test('POST /movie', async () => {
+  test('creates a movie', async () => {
+    const movie = {
+      title: 'Star Wars',
+      description: 'Description...'
+    }
+
     const response = await request(app)
       .post('/movie')
-      .send({
-        title: 'Star Wars',
-        description: 'Description...'
-      })
+      .send(movie)
       .set('Accept', 'application/json');
 
     expect(response.statusCode).toBe(201);
     expect(response.body.movie.title).toBe('Star Wars');
     expect(response.body.movie.description).toBe('Description...');
-    expect(response.body.status).toBe('successfully added movie');
+  });
+
+  test('does not create a movie', async () => {
+    const invalidMovie = {
+      title: '',
+      description: ''
+    }
+
+    const response = await request(app)
+      .post('/movie')
+      .send(invalidMovie)
+      .set('Accept', 'application/json');
+
+    expect(response.statusCode).toBe(400);
   });
 
 });

@@ -1,11 +1,7 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-
-const database = {
-  save: () => ({}),
-  getAll: () => [{}]
-}
+const database = require('../database/');
 
 module.exports = core => {
   

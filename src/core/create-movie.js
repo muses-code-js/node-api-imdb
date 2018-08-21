@@ -17,6 +17,8 @@ module.exports = (database) => ({ title, description }) => {
     };
   }
 
+  console.log('----->getAll', database.getAll());
+  
   const isDuplicatedMovie = database.getAll().some((movie) => movie.title === title);
 
   if (isDuplicatedMovie) {
@@ -26,7 +28,7 @@ module.exports = (database) => ({ title, description }) => {
   }
 
   const { id } = database.save({ title, description });
-
+  
   return {
     movie: {
       id,

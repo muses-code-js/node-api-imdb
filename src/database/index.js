@@ -11,8 +11,11 @@ module.exports = {
 		const movie = await Movies.create({ title, description });
 		return { id: movie._id };
 	},
-	getAll: () => [{
-		title: 'Hello',
-		description: 'Some description'
-	}]
+	getAll: async () => {
+		const results = await Movies.find()
+			.then(res => res.json())
+			.then(movie => console.log(movie));
+
+		return results;
+	}
 }

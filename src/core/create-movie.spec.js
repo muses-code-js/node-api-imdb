@@ -33,6 +33,23 @@ describe('core - create movie', () => {
     expect(databaseSaveSpy).not.toHaveBeenCalled()
   });
 
+  test('requires a movie with a title and description', () => {
+    const movie = {
+      title: '',
+      description: ''
+    }
+    const database = {
+      save: () => ({})
+    }
+    const databaseSaveSpy = jest.spyOn(database, 'save');
+
+    const result = createMovie(database)(movie);
+  
+    expect(result.status).toBe('Movie title and description are required');
+    expect(databaseSaveSpy).not.toHaveBeenCalled()
+  });
+
+
   test('creates a movie', () => {
     const database = {
       save: () => ({

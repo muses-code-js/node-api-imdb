@@ -1,4 +1,10 @@
 module.exports = (database) => ({ title, description }) => {
+  if (!title && !description) {
+    return {
+      status: 'Movie title and description are required'
+    };
+  }
+  
   if (!title) {
     return {
       status: 'Movie title is required'

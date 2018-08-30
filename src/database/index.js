@@ -12,10 +12,10 @@ module.exports = {
 		return { id: movie._id };
 	},
 	getAll: async () => {
-		const results = await Movies.find()
-			.then(res => res.json())
-			.then(movie => console.log(movie));
-
-		return results;
+		const results = await Movies.find();
+		
+		return results.map(result => ({
+			title: result.title
+		}));
 	}
 }

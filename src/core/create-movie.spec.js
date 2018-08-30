@@ -1,7 +1,7 @@
 const createMovie = require('./create-movie');
 
 describe('core - create movie', () => {
-  test('requires a movie with a title', () => {
+  test('requires a movie with a title', async () => {
     const movie = {
       title: '',
       description: 'A long time ago in a galaxy far far away...'
@@ -11,13 +11,13 @@ describe('core - create movie', () => {
     }
     const databaseSaveSpy = jest.spyOn(database, 'save');
 
-    const result = createMovie(database)(movie);
+    const result = await createMovie(database)(movie);
   
     expect(result.status).toBe('Movie title is required');
     expect(databaseSaveSpy).not.toHaveBeenCalled()
   });
 
-  test('requires a movie with a description', () => {
+  test('requires a movie with a description', async () => {
     const movie = {
       title: 'Star Wars',
       description: ''
@@ -27,13 +27,13 @@ describe('core - create movie', () => {
     }
     const databaseSaveSpy = jest.spyOn(database, 'save');
 
-    const result = createMovie(database)(movie);
+    const result = await createMovie(database)(movie);
   
     expect(result.status).toBe('Movie description is required');
     expect(databaseSaveSpy).not.toHaveBeenCalled()
   });
 
-  test('requires a movie with a title and description', () => {
+  test('requires a movie with a title and description', async () => {
     const movie = {
       title: '',
       description: ''
@@ -43,14 +43,14 @@ describe('core - create movie', () => {
     }
     const databaseSaveSpy = jest.spyOn(database, 'save');
 
-    const result = createMovie(database)(movie);
+    const result = await createMovie(database)(movie);
   
     expect(result.status).toBe('Movie title and description are required');
     expect(databaseSaveSpy).not.toHaveBeenCalled()
   });
 
 
-  test('creates a movie', () => {
+  test('creates a movie', async () => {
     const database = {
       save: () => ({
         id: 2
@@ -65,7 +65,7 @@ describe('core - create movie', () => {
       description: 'A long time ago in a galaxy far far away...'
     }
 
-    const result = createMovie(database)(movie);
+    const result = await createMovie(database)(movie);
 
     expect(databaseSaveSpy).toHaveBeenCalledWith(movie);
 
@@ -75,7 +75,7 @@ describe('core - create movie', () => {
     expect(result.status).toBe('successfully added movie');
   });
 
-  test('does not create duplicated movie', () => {
+  test('does not create duplicated movie', async () => {
     const movie = {
       title: 'Star Wars',
       description: 'A long time ago in a galaxy far far away...'
@@ -90,7 +90,7 @@ describe('core - create movie', () => {
 
     const databaseSaveSpy = jest.spyOn(database, 'save');
 
-    const result = createMovie(database)(movie);
+    const result = await createMovie(database)(movie);
 
     expect(databaseSaveSpy).not.toHaveBeenCalled()
     expect(result.status).toBe('Movie already exist');

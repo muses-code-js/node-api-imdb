@@ -1,4 +1,4 @@
-module.exports = (database) => ({ title, description }) => {
+module.exports = (database) => async ({ title, description }) => {
   if (!title && !description) {
     return {
       status: 'Movie title and description are required'
@@ -16,10 +16,9 @@ module.exports = (database) => ({ title, description }) => {
       status: 'Movie description is required'
     };
   }
-
-  console.log('----->getAll', database.getAll());
   
-  const isDuplicatedMovie = database.getAll().some((movie) => movie.title === title);
+  const movies = await database.getAll();
+  const isDuplicatedMovie = movies.some((movie) => movie.title === title);
 
   if (isDuplicatedMovie) {
     return {
@@ -27,7 +26,7 @@ module.exports = (database) => ({ title, description }) => {
     }
   }
 
-  const { id } = database.save({ title, description });
+  const { id } = await database.save({ title, description });
   
   return {
     movie: {

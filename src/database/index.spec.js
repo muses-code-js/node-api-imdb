@@ -5,7 +5,7 @@ const database = require('./index');
 
 describe('database', () => {
 	beforeEach(() => mongoose.connection.collections['movies'].drop());
-	
+
   test('save movies', async () => {
     const movie = {
       title: 'Star Wars',
@@ -16,5 +16,6 @@ describe('database', () => {
 
 		expect(savedMovie.id).toBeDefined();
 		expect(movies[0].title).toBe(movie.title);
+		expect(movies[0].description).toBe(movie.description);
 	});
 });

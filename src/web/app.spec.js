@@ -1,7 +1,7 @@
 const request = require('supertest');
 const core = require('../core');
 const database = require('../../test-support/fake-database');
-const app = require('./app')(core, database);
+const app = require('./app')(core, database); // Dependency Injection
 
 describe('web - app', () => {
 
